@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         rq = Volley.newRequestQueue(this);
 
-        fragmentChanger(CagesFragment.class);
+        fragmentChanger(ZookeepersFragment.class);
 
         initGui();
     }

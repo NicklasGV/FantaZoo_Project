@@ -3,23 +3,97 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="Zookeeper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_other"
-        app:layout_constraintEnd_toStartOf="@+id/tv_name_Shower"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Name:"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_img"
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView
-        android:id="@+id/tv_name_Shower"
+        android:id="@+id/tv_name_Show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_other"
+        android:layout_marginHorizontal="50dp"
         app:layout_constraintStart_toEndOf="@+id/tv_name"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_weapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="Weapon:"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_img"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        />
+    <TextView
+        android:id="@+id/tv_weapon_Show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="No weapon"
+        android:layout_marginHorizontal="50dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_weapon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        />
+
+    <TextView
+        android:id="@+id/tv_damage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="Damage:"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_img"
+        app:layout_constraintTop_toBottomOf="@+id/tv_weapon"
+        />
+    <TextView
+        android:id="@+id/tv_damage_Show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="No damage"
+        android:layout_marginHorizontal="50dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_weapon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_weapon"
+        />
+
+    <TextView
+        android:id="@+id/tv_cage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="Cage:"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_img"
+        app:layout_constraintTop_toBottomOf="@+id/tv_damage"
+        />
+    <TextView
+        android:id="@+id/tv_cage_Show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_other"
+        android:text="No Cage"
+        android:layout_marginHorizontal="50dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_weapon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_damage"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

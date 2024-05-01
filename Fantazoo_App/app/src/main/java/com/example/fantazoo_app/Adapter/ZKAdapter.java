@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.fantazoo_app.Models.ZKModel;
 import com.example.fantazoo_app.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,8 +39,11 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
 
             listItemView = inflater.inflate(R.layout.zk_grid_item, parent, false);
 
-            viewHolder.textView = listItemView.findViewById(R.id.tv_name);
-            // viewHolder.imageView = listItemView.findViewById(R.id.img_card);
+            viewHolder.tv_name = listItemView.findViewById(R.id.tv_name_Show);
+            viewHolder.tv_weapon = listItemView.findViewById(R.id.tv_weapon_Show);
+            viewHolder.tv_damage = listItemView.findViewById(R.id.tv_damage_Show);
+            viewHolder.tv_cage = listItemView.findViewById(R.id.tv_cage_Show);
+            viewHolder.imageView = listItemView.findViewById(R.id.iv_img);
 
             listItemView.setTag(viewHolder);
         } else {
@@ -50,13 +54,27 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
         ZKModel zkm = mResults.get(position);
 
         if (zkm.getName() != null) {
-            viewHolder.textView.setText(zkm.getName());
+            viewHolder.tv_name.setText(zkm.getName());
         }
-        // Load backdrop image using Picasso
+        if (zkm.getWeapon() != null) {
+            viewHolder.tv_weapon.setText(zkm.getWeapon().getName());
+        }
+        if (zkm.getWeapon() != null) {
+            viewHolder.tv_damage.setText(zkm.getWeapon().getDamage());
+        }
+        if (zkm.getCage() != null) {
+            viewHolder.tv_cage.setText(zkm.getCage().getName());
+        }
+
+        String imageUrl = "https://i.imgur.com/TcoSw9a.jpeg";
+        Picasso.get().load(imageUrl).into(viewHolder.imageView);
+
+        //Load backdrop image using Picasso
 //        if (zkm.getBackdrop_path() != null) {
 //            String imageUrl = "https://image.tmdb.org/t/p/original/" + result.getPoster_path();
 //            Picasso.get().load(imageUrl).into(viewHolder.imageView);
 //        }
+
 
 //        viewHolder.imageView.setOnClickListener(v -> {
 //            // Pass the selected movie directly to DetailedMovieFragment.newInstance()
@@ -75,7 +93,10 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
     }
 
     static class ViewHolder {
-        TextView textView;
+        TextView tv_name;
+        TextView tv_weapon;
+        TextView tv_damage;
+        TextView tv_cage;
         ImageView imageView;
     }
 }
