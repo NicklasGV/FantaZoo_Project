@@ -28,17 +28,30 @@ public class AdminAnimAdapter extends ArrayAdapter<AnimModel> {
     private ArrayList<AnimModel> aResults;
 
     private EditButtonClickListener editButtonClickListener;
+    private DeleteButtonClickListener deleteButtonClickListener;
 
-    public AdminAnimAdapter( Context context, ArrayList<AnimModel> results){
-        super(context,0, results);
+    public AdminAnimAdapter(Context context, ArrayList<AnimModel> results) {
+        super(context, 0, results);
         aContext = context;
         aResults = results;
     }
 
+    // Interface for handling delete button clicks
+    public interface DeleteButtonClickListener {
+        void onDeleteButtonClick(AnimModel selectedItem);
+    }
+
+    // Setter for delete button click listener
+    public void setDeleteButtonClickListener(DeleteButtonClickListener listener) {
+        this.deleteButtonClickListener = listener;
+    }
+
+    // Interface for handling edit button clicks
     public interface EditButtonClickListener {
         void onEditButtonClick(AnimModel selectedItem);
     }
 
+    // Setter for edit button click listener
     public void setEditButtonClickListener(EditButtonClickListener listener) {
         this.editButtonClickListener = listener;
     }
@@ -47,37 +60,48 @@ public class AdminAnimAdapter extends ArrayAdapter<AnimModel> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        AdminAnimAdapter.ViewHolder viewHolder;
+        ViewHolder viewHolder;
 
         if (listItemView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            viewHolder = new AdminAnimAdapter.ViewHolder();
+            viewHolder = new ViewHolder();
 
+            // Inflate the layout for the list item
             listItemView = inflater.inflate(R.layout.admin_anim_grid_list, parent, false);
 
+            // Initialize views
             viewHolder.tv_name = listItemView.findViewById(R.id.tv_name_Show);
             viewHolder.tv_age = listItemView.findViewById(R.id.tv_age_Show);
             viewHolder.tv_gender = listItemView.findViewById(R.id.fab_gender);
             viewHolder.tv_damage = listItemView.findViewById(R.id.tv_damage_Show);
             viewHolder.tv_cage = listItemView.findViewById(R.id.tv_cage_Show);
             viewHolder.imageView = listItemView.findViewById(R.id.iv_img);
-            viewHolder.imageButton = listItemView.findViewById(R.id.ib_edit);
+            viewHolder.imageButton_edit = listItemView.findViewById(R.id.ib_edit);
+            viewHolder.imageButton_delete = listItemView.findViewById(R.id.ib_delete);
 
-
+            // Set tag for ViewHolder to reuse views
             listItemView.setTag(viewHolder);
         } else {
-            viewHolder = (AdminAnimAdapter.ViewHolder) listItemView.getTag();
+            viewHolder = (ViewHolder) listItemView.getTag();
         }
 
         // Set OnClickListener to the edit button
-        viewHolder.imageButton.setOnClickListener(v -> {
+        viewHolder.imageButton_edit.setOnClickListener(v -> {
             if (editButtonClickListener != null) {
                 AnimModel selectedItem = aResults.get(position);
                 editButtonClickListener.onEditButtonClick(selectedItem);
             }
         });
 
-        // Bind data to your grid item layout here
+        // Set OnClickListener to the delete button
+        viewHolder.imageButton_delete.setOnClickListener(v -> {
+            if (deleteButtonClickListener != null) {
+                AnimModel selectedItem = aResults.get(position);
+                deleteButtonClickListener.onDeleteButtonClick(selectedItem);
+            }
+        });
+
+        // Bind data to views
         AnimModel anim = aResults.get(position);
         int animAge = anim.getAge();
 
@@ -88,12 +112,10 @@ public class AdminAnimAdapter extends ArrayAdapter<AnimModel> {
             viewHolder.tv_age.setText(String.valueOf(animAge));
         }
         if (anim.getGender() != null) {
-            if (anim.getGender().equals("MALE"))
-            {
+            if (anim.getGender().equals("MALE")) {
                 viewHolder.tv_gender.setImageResource(R.drawable.baseline_male_24);
                 viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_blue)));
-            }
-            else if (anim.getGender().equals("FEMALE")) {
+            } else if (anim.getGender().equals("FEMALE")) {
                 viewHolder.tv_gender.setImageResource(R.drawable.baseline_female_24);
                 viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_red)));
             }
@@ -102,19 +124,22 @@ public class AdminAnimAdapter extends ArrayAdapter<AnimModel> {
             viewHolder.tv_cage.setText(anim.getCage().getName());
         }
 
+        // Load image using Picasso library
         String imageUrl = "https://i.imgur.com/p21dFsJ.jpeg";
         Picasso.get().load(imageUrl).into(viewHolder.imageView);
 
         return listItemView;
     }
 
+    // ViewHolder pattern for efficient view reuse
     static class ViewHolder {
         TextView tv_name;
         TextView tv_age;
         FloatingActionButton tv_gender;
         TextView tv_damage;
         TextView tv_cage;
-        ImageButton imageButton;
+        ImageButton imageButton_edit;
+        ImageButton imageButton_delete;
         ImageView imageView;
     }
 }

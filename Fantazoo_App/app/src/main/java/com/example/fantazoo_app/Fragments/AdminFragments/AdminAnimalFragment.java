@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.EditButtonClickListener{
+public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.EditButtonClickListener, AdminAnimAdapter.DeleteButtonClickListener{
     private Spinner spinner;
     private GridView gridView;
     private ArrayList<AnimModel> amodel;
@@ -99,6 +100,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
 
         Button saveButton = view.findViewById(R.id.btn_admin_animal_save);
         animAdapter.setEditButtonClickListener(this);
+        animAdapter.setDeleteButtonClickListener(this);
 
         // Set OnClickListener to the save button
         saveButton.setOnClickListener(v -> saveAnimal());
@@ -109,7 +111,8 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
 
         return view;
     }
-
+    // Overrides the method to populate edit views,
+    // with data from selectedItem and set the selected animal ID.
     @Override
     public void onEditButtonClick(AnimModel selectedItem) {
         // Populate the edit views with data from selectedItem
@@ -117,6 +120,13 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
 
         // Set the selected animal ID
         selectedAnimalId = selectedItem.getId();
+    }
+    // Overrides the method to set the selected animal ID and delete the corresponding animal.
+    @Override
+    public void onDeleteButtonClick(AnimModel selectedItem) {
+        // Set the selected animal ID
+        selectedAnimalId = selectedItem.getId();
+        deleteAnimal(selectedAnimalId);
     }
 
     private void populateEditViews(AnimModel selectedItem) {
@@ -138,7 +148,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         // Set the cage spinner to the position of the selected cage
         animalCageSpinner.setSelection(cagePosition);
     }
-
+    // Gets cage position for edited animal
     private int getCagePosition(CageModel selectedCage) {
         if (selectedCage != null) {
             for (int i = 0; i < cages.size(); i++) {
@@ -150,7 +160,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         }
         return 0; // Default to the first position if not found
     }
-
+    // Gets gender position for edited animal
     private int getGenderPosition(Gender gender) {
         Gender[] genders = Gender.values();
         for (int i = 0; i < genders.length; i++) {
@@ -160,7 +170,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         }
         return 0; // Default to the first position if not found
     }
-
+    // Gets all animals
     public void getAnimals() {
         String url = Secrets.host + "/api/ac";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
@@ -180,7 +190,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         rq.add(request);
     }
 
-
+    // Gets all cages
     public void getCages() {
         String url = Secrets.host + "/api/cc";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
@@ -206,7 +216,8 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         };
         rq.add(request);
     }
-
+    // Saves animals as a standard, but if it detects an id it edits the id with the data,
+    // from editViews
     private void saveAnimal() {
         // Retrieve values from views
         String name = animalNameEditText.getText().toString();
@@ -262,6 +273,15 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
                 });
 
         // Add the request to the
+        reloadFragment();
+        rq.add(request);
+    }
+
+    void deleteAnimal(int animId) {
+        String url = Secrets.host + "/api/ac/id/" + animId;
+        StringRequest request = new StringRequest(Request.Method.DELETE, url, response -> {
+            Toast.makeText(getContext(), "Animal Deleted", Toast.LENGTH_SHORT).show();
+        }, error -> Log.e("Volley", error.toString()));
         reloadFragment();
         rq.add(request);
     }
