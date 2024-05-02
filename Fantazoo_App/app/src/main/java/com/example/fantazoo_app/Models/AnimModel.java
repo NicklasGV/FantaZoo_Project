@@ -4,7 +4,7 @@ public class AnimModel {
     public int id;
     public String name;
     public int age;
-    public Gender gender;
+    public String gender;
     public CageModel cage;
 
     public int getId() {
@@ -31,11 +31,11 @@ public class AnimModel {
         this.age = age;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

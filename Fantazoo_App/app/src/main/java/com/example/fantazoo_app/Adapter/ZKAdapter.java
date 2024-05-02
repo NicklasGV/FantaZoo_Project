@@ -1,7 +1,6 @@
 package com.example.fantazoo_app.Adapter;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,13 +17,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class ZKAdapter extends ArrayAdapter<ZKModel> {
-    private Context mContext;
-    private ArrayList<ZKModel> mResults;
+    private Context zkContext;
+    private ArrayList<ZKModel> zkResults;
 
     public  ZKAdapter( Context context, ArrayList<ZKModel> results){
         super(context,0, results);
-        mContext = context;
-        mResults = results;
+        zkContext = context;
+        zkResults = results;
     }
 
     @NonNull
@@ -51,7 +50,7 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
         }
 
         // Bind data to your grid item layout here
-        ZKModel zkm = mResults.get(position);
+        ZKModel zkm = zkResults.get(position);
 
         if (zkm.getName() != null) {
             viewHolder.tv_name.setText(zkm.getName());
@@ -69,7 +68,19 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
         String imageUrl = "https://i.imgur.com/TcoSw9a.jpeg";
         Picasso.get().load(imageUrl).into(viewHolder.imageView);
 
-        //Load backdrop image using Picasso
+        return listItemView;
+    }
+
+    static class ViewHolder {
+        TextView tv_name;
+        TextView tv_weapon;
+        TextView tv_damage;
+        TextView tv_cage;
+        ImageView imageView;
+    }
+}
+
+//Load backdrop image using Picasso
 //        if (zkm.getBackdrop_path() != null) {
 //            String imageUrl = "https://image.tmdb.org/t/p/original/" + result.getPoster_path();
 //            Picasso.get().load(imageUrl).into(viewHolder.imageView);
@@ -87,16 +98,3 @@ public class ZKAdapter extends ArrayAdapter<ZKModel> {
 //                    .addToBackStack("name")
 //                    .commit();
 //        });
-
-
-        return listItemView;
-    }
-
-    static class ViewHolder {
-        TextView tv_name;
-        TextView tv_weapon;
-        TextView tv_damage;
-        TextView tv_cage;
-        ImageView imageView;
-    }
-}

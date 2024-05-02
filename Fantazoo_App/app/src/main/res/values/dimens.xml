@@ -2,5 +2,6 @@
 <resources>
     <dimen name="text_title">30sp</dimen>
     <dimen name="text_button">20sp</dimen>
+    <dimen name="text_edit">20sp</dimen>
     <dimen name="text_other">25sp</dimen>
 </resources>

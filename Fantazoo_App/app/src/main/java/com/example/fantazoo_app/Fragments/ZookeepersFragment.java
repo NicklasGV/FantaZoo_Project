@@ -64,40 +64,6 @@ public class ZookeepersFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Call updateGridViewColumns when configuration changes (e.g., device orientation)
-        setRetainInstance(true);
-        updateGridViewColumns();
-    }
-
-    private void updateGridViewColumns() {
-        int columns;
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int screenWidthPx = displayMetrics.widthPixels;
-        int screenHeightPx = displayMetrics.heightPixels;
-        float screenDensity = displayMetrics.density;
-
-        // Define thresholds for different screen sizes
-        int phoneScreenWidthThreshold = 1000; // in pixels
-        int tabletScreenWidthThreshold = 1400; // in pixelsw
-
-        // Calculate screen width in dp
-        int screenWidthDp = (int) (screenWidthPx / screenDensity);
-
-        // Determine number of columns based on screen size
-        if (screenWidthDp < phoneScreenWidthThreshold) {
-            columns = 2; // Small screens (phones)
-        } else if (screenWidthDp < tabletScreenWidthThreshold) {
-            columns = 3; // Medium screens (tablets)
-        } else {
-            columns = 4; // Large screens (PC screens)
-        }
-
-        gridView.setNumColumns(columns);
-    }
-
     public void getZookeepers() {
         String url = Secrets.host + "/api/zkc";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {

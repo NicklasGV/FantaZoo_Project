@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.fantazoo_app.Fragments.AdminFragments.AdminFragment;
 import com.example.fantazoo_app.Fragments.AnimalsFragment;
 import com.example.fantazoo_app.Fragments.CagesFragment;
 import com.example.fantazoo_app.Fragments.ZookeepersFragment;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         rq = Volley.newRequestQueue(this);
 
-        fragmentChanger(ZookeepersFragment.class);
+        fragmentChanger(CagesFragment.class);
 
         initGui();
     }
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_animals).setOnClickListener(v -> fragmentChanger(AnimalsFragment.class));
         findViewById(R.id.btn_cages).setOnClickListener(v -> fragmentChanger(CagesFragment.class));
         findViewById(R.id.btn_zookeepers).setOnClickListener(v -> fragmentChanger(ZookeepersFragment.class));
+        findViewById(R.id.fab_admin).setOnClickListener(v -> fragmentChanger(AdminFragment.class));
     }
 
     private void fragmentChanger(Class c) {

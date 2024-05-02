@@ -2,17 +2,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/darkgreen_trans"
-    >
+    android:background="@color/brown_trans">
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="180dp"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="10dp"
-        android:contentDescription="Zookeeper"
+        android:contentDescription="Animal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_gender"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="@id/iv_img"
+        app:layout_constraintTop_toTopOf="@+id/iv_img"
+        android:src="@drawable/baseline_male_24"
         />
 
     <TextView
@@ -36,23 +44,22 @@
         />
 
     <TextView
-        android:id="@+id/tv_zk"
+        android:id="@+id/tv_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_other"
-        android:text="Weapon:"
+        android:text="Age:"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/iv_img"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         />
     <TextView
-        android:id="@+id/tv_weapon_Show"
+        android:id="@+id/tv_age_Show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_other"
-        android:text="No weapon"
         android:layout_marginHorizontal="50dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_zk"
+        app:layout_constraintStart_toEndOf="@+id/tv_age"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         />
 
@@ -64,17 +71,17 @@
         android:text="Damage:"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toEndOf="@+id/iv_img"
-        app:layout_constraintTop_toBottomOf="@+id/tv_zk"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age"
         />
     <TextView
         android:id="@+id/tv_damage_Show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_other"
-        android:text="No damage"
+        android:text="Not Hostile"
         android:layout_marginHorizontal="50dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_zk"
-        app:layout_constraintTop_toBottomOf="@+id/tv_zk"
+        app:layout_constraintStart_toEndOf="@+id/tv_anim"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age"
         />
 
     <TextView
@@ -94,8 +101,17 @@
         android:textSize="@dimen/text_other"
         android:text="No Cage"
         android:layout_marginHorizontal="50dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_zk"
+        app:layout_constraintStart_toEndOf="@+id/tv_cage"
         app:layout_constraintTop_toBottomOf="@+id/tv_anim"
+        />
+
+    <ImageButton
+        android:id="@+id/ib_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/iv_img"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cage_Show"
+        android:src="@drawable/baseline_edit_24"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
