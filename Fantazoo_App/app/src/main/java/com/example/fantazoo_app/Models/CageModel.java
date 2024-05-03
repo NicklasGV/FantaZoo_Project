@@ -8,6 +8,12 @@ public class CageModel {
     public ArrayList<ZKModel> zookeepers;
     public ArrayList<AnimModel> animals;
 
+    // Constructor with ID and name parameters
+    public CageModel(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package com.example.fantazoo_app.Adapter;
+package com.example.fantazoo_app.Adapter.AdminAdapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

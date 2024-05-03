@@ -1,4 +1,4 @@
-package com.example.fantazoo_app.Adapter;
+package com.example.fantazoo_app.Adapter.AdminAdapters;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -108,20 +108,29 @@ public class AdminAnimAdapter extends ArrayAdapter<AnimModel> {
         if (anim.getName() != null) {
             viewHolder.tv_name.setText(anim.getName());
         }
+
         if (animAge > 0) {
             viewHolder.tv_age.setText(String.valueOf(animAge));
         }
+
         if (anim.getGender() != null) {
-            if (anim.getGender().equals("MALE")) {
-                viewHolder.tv_gender.setImageResource(R.drawable.baseline_male_24);
-                viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_blue)));
-            } else if (anim.getGender().equals("FEMALE")) {
-                viewHolder.tv_gender.setImageResource(R.drawable.baseline_female_24);
-                viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_red)));
+            switch (anim.getGender()) {
+                case "MALE":
+                    viewHolder.tv_gender.setImageResource(R.drawable.baseline_male_24);
+                    viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_blue)));
+                    break;
+                case "FEMALE":
+                    viewHolder.tv_gender.setImageResource(R.drawable.baseline_female_24);
+                    viewHolder.tv_gender.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(aContext, R.color.see_through_red)));
+                    break;
             }
         }
-        if (anim.getCage() != null) {
+
+        if (anim.getCage() != null && anim.getCage().getName() != null) {
             viewHolder.tv_cage.setText(anim.getCage().getName());
+        }
+        else {
+            viewHolder.tv_cage.setText("In the wild");
         }
 
         // Load image using Picasso library

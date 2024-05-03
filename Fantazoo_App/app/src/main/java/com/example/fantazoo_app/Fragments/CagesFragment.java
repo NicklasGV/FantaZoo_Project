@@ -14,9 +14,7 @@ import android.widget.GridView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.example.fantazoo_app.Adapter.AnimAdapter;
 import com.example.fantazoo_app.Adapter.CageAdapter;
-import com.example.fantazoo_app.Models.AnimModel;
 import com.example.fantazoo_app.Models.CageModel;
 import com.example.fantazoo_app.R;
 import com.example.fantazoo_app.Secrets;

@@ -8,6 +8,11 @@ public class WeapModel {
     public String damage;
     public ArrayList<ZKModel> zookeepers;
 
+    public WeapModel(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

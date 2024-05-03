@@ -55,7 +55,7 @@ public class CageController {
     }
 
     @DeleteMapping("/id/{id}")
-    void deleteWeapon(@PathVariable int id)
+    void deleteCage(@PathVariable int id)
     {
         Cage cage = cr.findById(id).orElse(null);
         if (cage != null) {

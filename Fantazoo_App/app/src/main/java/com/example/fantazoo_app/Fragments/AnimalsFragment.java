@@ -51,7 +51,7 @@ public class AnimalsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_animals, container, false);
 
-        gridView = view.findViewById(R.id.gv_anim_list);
+        gridView = view.findViewById(R.id.gv_keeper_list);
         amodel = new ArrayList<>();
         adapter = new AnimAdapter(getContext(), amodel);
         gridView.setAdapter(adapter);

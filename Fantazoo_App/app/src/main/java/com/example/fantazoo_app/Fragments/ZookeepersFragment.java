@@ -2,12 +2,10 @@ package com.example.fantazoo_app.Fragments;
 
 import static com.example.fantazoo_app.MainActivity.rq;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +23,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ZookeepersFragment extends Fragment {
     private GridView gridView;

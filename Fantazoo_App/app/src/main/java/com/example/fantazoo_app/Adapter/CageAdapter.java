@@ -63,6 +63,17 @@ public class CageAdapter extends ArrayAdapter<CageModel> {
             viewHolder.tv_anim.setText(String.valueOf(animCount));
         }
 
+        // Set onClick listener on the entire grid item
+        listItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle click event here
+                // You can get the position of the clicked item using the parameter 'position'
+                // Example: CageModel clickedCage = cResults.get(position);
+                // Perform actions based on the clicked item
+            }
+        });
+
         return listItemView;
     }
 
@@ -70,7 +81,5 @@ public class CageAdapter extends ArrayAdapter<CageModel> {
         TextView tv_name;
         TextView tv_zk;
         TextView tv_anim;
-
-        ImageView imageView;
     }
 }

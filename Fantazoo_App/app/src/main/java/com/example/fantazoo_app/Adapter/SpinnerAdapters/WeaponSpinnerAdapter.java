@@ -1,4 +1,4 @@
-package com.example.fantazoo_app.Adapter;
+package com.example.fantazoo_app.Adapter.SpinnerAdapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,22 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.fantazoo_app.Models.CageModel;
+import com.example.fantazoo_app.Models.WeapModel;
 import com.example.fantazoo_app.R;
 
 import java.util.ArrayList;
 
-public class CageSpinnerAdapter extends ArrayAdapter<CageModel> {
+public class WeaponSpinnerAdapter extends ArrayAdapter<WeapModel> {
 
-    public CageSpinnerAdapter(Context context, ArrayList<CageModel> cages) {
-        super(context, 0, cages);
+    public WeaponSpinnerAdapter(Context context, ArrayList<WeapModel> weapons) {
+        super(context, 0, weapons);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // Get the data item for this position
-        CageModel cage = getItem(position);
+        WeapModel weapon = getItem(position);
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
@@ -35,8 +35,11 @@ public class CageSpinnerAdapter extends ArrayAdapter<CageModel> {
         TextView tvName = convertView.findViewById(R.id.spinner_text);
 
         // Populate the data into the template view using the data object
-        if (cage != null) {
-            tvName.setText(cage.getName());
+        if (weapon != null) {
+            tvName.setText(weapon.getName());
+        } else {
+            // If weapon is null, set "No weapon" as the text
+            tvName.setText("No Weapon");
         }
 
         // Return the completed view to render on screen

@@ -18,23 +18,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.example.fantazoo_app.Adapter.AdminAnimAdapter;
-import com.example.fantazoo_app.Adapter.AnimAdapter;
-import com.example.fantazoo_app.Adapter.CageAdapter;
-import com.example.fantazoo_app.Adapter.CageSpinnerAdapter;
+import com.example.fantazoo_app.Adapter.AdminAdapters.AdminAnimAdapter;
+import com.example.fantazoo_app.Adapter.SpinnerAdapters.CageSpinnerAdapter;
 import com.example.fantazoo_app.Extra.Gender;
 import com.example.fantazoo_app.Models.AnimModel;
 import com.example.fantazoo_app.Models.CageModel;
 import com.example.fantazoo_app.R;
 import com.example.fantazoo_app.Secrets;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
@@ -79,17 +74,16 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.admin_fragment_animal, container, false);
 
-        spinner = view.findViewById(R.id.editor_animal_cage);
+        animalCageSpinner = view.findViewById(R.id.editor_animal_cage);
         cages = new ArrayList<>();
         adapter = new CageSpinnerAdapter(getContext(), cages);
-        spinner.setAdapter(adapter);
+        animalCageSpinner.setAdapter(adapter);
 
         animalNameEditText = view.findViewById(R.id.editor_animal_name);
         animalAgeEditText = view.findViewById(R.id.editor_animal_age);
         animalGenderSpinner = view.findViewById(R.id.editor_animal_gender);
-        animalCageSpinner = view.findViewById(R.id.editor_animal_cage);
 
-        gridView = view.findViewById(R.id.gv_anim_list);
+        gridView = view.findViewById(R.id.gv_animal_list);
         amodel = new ArrayList<>();
         animAdapter = new AdminAnimAdapter(getContext(), amodel);
         gridView.setAdapter(animAdapter);
@@ -201,6 +195,9 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
             Type listType = new TypeToken<ArrayList<CageModel>>(){}.getType();
             ArrayList<CageModel> cageModel = gson.fromJson(json, listType);
 
+            // Add "No cage" option
+            cages.add(new CageModel(0, "No cage"));
+
             if (cageModel != null) {
                 // Add new data to the existing list
                 cages.addAll(cageModel);
@@ -225,7 +222,14 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
         Gender gender = (Gender) animalGenderSpinner.getSelectedItem();
         CageModel selectedCage = (CageModel) animalCageSpinner.getSelectedItem();
 
-        int cageId = selectedCage.getId();
+        int cageId;
+
+        // Check if selected cage is "No cage"
+        if (selectedCage != null && selectedCage.getName().equals("No cage")) {
+            cageId = 0; // Set cage ID to 0 for "No cage"
+        } else {
+            cageId = selectedCage != null ? selectedCage.getId() : 0;
+        }
 
         // Hide keyboard
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -238,9 +242,12 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
             requestBody.put("name", name);
             requestBody.put("age", age);
             requestBody.put("gender", gender.toString()); // Convert enum to string
-            JSONObject cageObject = new JSONObject();
-            cageObject.put("id", cageId);
-            requestBody.put("cage", cageObject);
+            // Add cage data only if the cage is not "No cage"
+            if (cageId != 0) {
+                JSONObject cageObject = new JSONObject();
+                cageObject.put("id", cageId);
+                requestBody.put("cage", cageObject);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -280,7 +287,7 @@ public class AdminAnimalFragment extends Fragment implements AdminAnimAdapter.Ed
     void deleteAnimal(int animId) {
         String url = Secrets.host + "/api/ac/id/" + animId;
         StringRequest request = new StringRequest(Request.Method.DELETE, url, response -> {
-            Toast.makeText(getContext(), "Animal Deleted", Toast.LENGTH_SHORT).show();
+            // Response can be added when delete is succesful
         }, error -> Log.e("Volley", error.toString()));
         reloadFragment();
         rq.add(request);
