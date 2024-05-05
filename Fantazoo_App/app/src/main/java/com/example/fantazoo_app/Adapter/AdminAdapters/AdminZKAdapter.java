@@ -68,6 +68,7 @@ public class AdminZKAdapter extends ArrayAdapter<ZKModel> {
             viewHolder.tv_name = listItemView.findViewById(R.id.tv_name_Show);
             viewHolder.tv_zk = listItemView.findViewById(R.id.tv_zk_Show);
             viewHolder.tv_cage = listItemView.findViewById(R.id.tv_cage_Show);
+            viewHolder.tv_weapon = listItemView.findViewById(R.id.tv_weapon_Show);
             viewHolder.imageView = listItemView.findViewById(R.id.iv_img);
             viewHolder.imageButton_edit = listItemView.findViewById(R.id.ib_edit);
             viewHolder.imageButton_delete = listItemView.findViewById(R.id.ib_delete);
@@ -109,10 +110,10 @@ public class AdminZKAdapter extends ArrayAdapter<ZKModel> {
         }
 
         if (zk.getWeapon() != null && zk.getWeapon().getName() != null) {
-            viewHolder.tv_cage.setText(zk.getWeapon().getName());
+            viewHolder.tv_weapon.setText(zk.getWeapon().getName());
         }
         else {
-            viewHolder.tv_cage.setText("No Weapon");
+            viewHolder.tv_weapon.setText("No Weapon");
         }
 
         // Load image using Picasso library
@@ -127,6 +128,7 @@ public class AdminZKAdapter extends ArrayAdapter<ZKModel> {
         TextView tv_name;
         TextView tv_zk;
         TextView tv_cage;
+        TextView tv_weapon;
         ImageButton imageButton_edit;
         ImageButton imageButton_delete;
         ImageView imageView;

@@ -63,7 +63,7 @@ public class AdminCageFragment extends Fragment implements AdminCageAdapter.Edit
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.admin_fragment_cage, container, false);
 
-        cageNameEditText = view.findViewById(R.id.editor_weapon_name);
+        cageNameEditText = view.findViewById(R.id.editor_cage_name);
 
         gridView = view.findViewById(R.id.gv_cage_list);
         cmodel = new ArrayList<>();
